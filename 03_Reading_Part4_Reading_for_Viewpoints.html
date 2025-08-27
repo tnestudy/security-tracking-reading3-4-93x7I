@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Practice Test I - Reading Part 4: Reading for Viewpoints</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+            font-size: 16px;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+
+
+        /* Logo */
+        .logo-container {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background-color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 1px solid #e1e5e9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Main Container */
+        .main-wrapper {
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .test-container {
+            width: 1200px;
+            height: 1568px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid #e1e5e9;
+            position: relative;
+        }
+
+        .header {
+            background-color: #e8f4fd;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            height: 60px;
+        }
+
+        .header-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .timer-next {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .timer {
+            color: #666;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .next-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .next-button:hover {
+            background-color: #0056b3;
+        }
+
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .left-panel {
+            flex: 0.47;
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-right: 1px solid #ddd;
+            overflow-y: auto;
+        }
+
+        .right-panel {
+            flex: 0.53;
+            background-color: white;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            font-weight: 600;
+            color: #333;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .info-icon {
+            background-color: #007bff;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            margin-right: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .reading-content {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .question-section {
+            margin-bottom: 40px;
+        }
+
+        .question {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        .question-number {
+            font-weight: 600;
+            margin-right: 10px;
+            min-width: 20px;
+            font-size: 16px;
+        }
+
+        .question-text {
+            flex: 1;
+            font-size: 16px;
+        }
+
+        .dropdown {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+            margin-left: 10px;
+            min-width: 150px;
+            font-size: 16px;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            background-size: 16px;
+            padding-right: 30px;
+        }
+
+        .scroll-message {
+            position: absolute;
+            background-color: white;
+            color: #007bff;
+            padding: 14px 19px;
+            border-radius: 6px;
+            font-size: 19px;
+            font-weight: 700;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            z-index: 1000;
+            top: 25%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+            text-align: center;
+            white-space: nowrap;
+            border: 1px solid #e1e5e9;
+        }
+
+        .scroll-message.show {
+            opacity: 1;
+        }
+
+        .response-text {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            font-size: 16px;
+            text-align: justify;
+        }
+
+        .blank-dropdown {
+            padding: 2px 6px;
+            border: 1px solid #007bff;
+            border-radius: 3px;
+            background-color: white;
+            margin: 0 2px;
+            min-width: 120px;
+            max-width: 200px;
+            font-size: 14px;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='7,10 12,15 17,10'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 4px center;
+            background-size: 10px;
+            padding-right: 20px;
+            white-space: nowrap;
+            vertical-align: baseline;
+            line-height: 1.2;
+            height: 28px;
+            position: relative;
+            top: 0.1em;
+            box-sizing: border-box;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .blank-dropdown#q9 {
+            min-width: 160px;
+            max-width: 200px;
+        }
+
+        .blank-dropdown#q6 {
+            min-width: 180px;
+            max-width: 220px;
+        }
+
+        .blank-dropdown#q7 {
+            min-width: 240px;
+            max-width: 300px;
+        }
+
+        .blank-dropdown#q8 {
+            min-width: 240px;
+            max-width: 300px;
+        }
+
+        .selected-answer {
+            color: #2d5a2d;
+            font-weight: bold;
+            text-decoration: underline;
+            background: none;
+            border: 2px solid transparent;
+            border-radius: 3px;
+            padding: 2px 4px;
+            margin: 0 2px;
+            font-size: 18px;
+            vertical-align: baseline;
+            line-height: 1.5;
+            position: relative;
+            top: 0.1em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .selected-answer:hover {
+            border-color: #007bff;
+            background-color: #f8f9fa;
+        }
+
+        .selected-answer.editing {
+            border-color: #007bff;
+            background-color: #e8f4fd;
+        }
+
+
+
+        .dropdown-group {
+            display: inline;
+            white-space: nowrap;
+        }
+
+        .bottom-buttons {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+
+
+
+        .results {
+            background-color: #e8f4fd;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            display: none;
+            font-size: 16px;
+        }
+
+        .results.show {
+            display: block;
+        }
+
+        /* Remove default dropdown arrow for IE */
+        .dropdown::-ms-expand,
+        .blank-dropdown::-ms-expand,
+        .product-dropdown::-ms-expand {
+            display: none;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+            }
+
+            .logo-container {
+                position: static;
+                top: auto;
+                left: auto;
+                width: 100%;
+                text-align: center;
+                padding: 15px;
+                margin-bottom: 10px;
+                border-radius: 0;
+                background-color: white;
+                border-bottom: 1px solid #e1e5e9;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+
+            .logo-container img {
+                max-width: 120px !important;
+                display: block;
+                margin: 0 auto;
+            }
+
+            .main-wrapper {
+                padding: 15px 10px;
+                min-height: 100vh;
+            }
+
+            .test-container {
+                width: 100%;
+                max-width: 100%;
+                height: auto;
+                min-height: calc(100vh - 30px);
+                margin: 0;
+                border-radius: 8px;
+            }
+
+            .header {
+                padding: 12px 15px;
+                flex-direction: column;
+                height: auto;
+                gap: 10px;
+                text-align: center;
+            }
+
+            .header-title {
+                font-size: 16px;
+                font-weight: 600;
+            }
+
+            .timer-next {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .timer {
+                font-size: 14px;
+            }
+
+            .next-button {
+                padding: 12px 24px;
+                font-size: 16px;
+                border-radius: 6px;
+                min-width: 80px;
+            }
+
+            .content {
+                padding: 15px;
+                flex: 1;
+                overflow-y: auto;
+                display: block;
+            }
+
+            /* Mobile: Single Column Layout - No Panels */
+            .main-container {
+                display: block !important;
+                flex-direction: column !important;
+                width: 100% !important;
+                overflow: visible !important;
+            }
+
+            .left-panel {
+                flex: none !important;
+                width: 100% !important;
+                float: none !important;
+                display: block !important;
+                margin-bottom: 25px;
+                padding: 20px !important;
+                border-right: none !important;
+                background-color: transparent !important;
+                overflow-y: visible !important;
+            }
+
+            .right-panel {
+                flex: none !important;
+                width: 100% !important;
+                float: none !important;
+                display: block !important;
+                padding: 0 !important;
+                background-color: transparent !important;
+                overflow-y: visible !important;
+            }
+
+            /* Force single column - no flexbox ordering needed */
+            .question-section {
+                width: 100% !important;
+                float: none !important;
+                display: block !important;
+                margin-bottom: 20px;
+            }
+
+            .content h2 {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+
+                    .reading-content {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+            margin-bottom: 20px;
+            font-size: 13px;
+            line-height: 1.6;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+            .question-section {
+                background-color: #ffffff;
+                border-radius: 8px;
+                padding: 20px;
+                margin-bottom: 20px;
+                border: 1px solid #e1e5e9;
+            }
+
+            .section-header {
+                background-color: #e8f4fd;
+                padding: 12px 15px;
+                border-radius: 6px;
+                margin-bottom: 20px;
+                font-size: 14px;
+                display: flex;
+                align-items: flex-start;
+                gap: 10px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .info-icon {
+                background-color: #007bff;
+                color: white;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 12px;
+                font-weight: bold;
+                flex-shrink: 0;
+                margin-top: 2px;
+            }
+
+            .response-text {
+                background-color: #f8f9fa;
+                padding: 20px;
+                border-radius: 8px;
+                border-left: 4px solid #28a745;
+                margin-top: 20px;
+                font-size: 15px;
+                line-height: 1.8;
+                width: 100%;
+                box-sizing: border-box;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+            }
+
+            .email-container {
+                margin-bottom: 20px;
+                border-radius: 8px;
+                padding: 15px;
+            }
+
+            .email-header {
+                margin-bottom: 10px;
+            }
+
+            .email-header strong {
+                font-size: 14px;
+            }
+
+            .email-body {
+                font-size: 15px;
+                line-height: 1.6;
+            }
+
+            .questions-section h3 {
+                font-size: 18px;
+                margin-bottom: 15px;
+            }
+
+            .question {
+                margin-bottom: 20px;
+                padding: 15px;
+                border-radius: 8px;
+                background-color: #f8f9fa;
+                border: 1px solid #e9ecef;
+                display: block;
+            }
+
+            .question-number {
+                font-weight: bold;
+                color: #007bff;
+                margin-right: 8px;
+                display: inline;
+            }
+
+            .question-text {
+                font-size: 15px;
+                line-height: 1.5;
+                font-weight: 500;
+                display: inline;
+            }
+
+            /* Create a line break after question text for better mobile layout */
+            .question .question-text:after {
+                content: "";
+                display: block;
+                margin-bottom: 15px;
+            }
+
+            /* Regular question dropdowns - stacked below question text */
+            .dropdown {
+                width: 100%;
+                padding: 12px 15px;
+                font-size: 16px;
+                border-radius: 6px;
+                min-height: 44px;
+                margin-top: 15px;
+                border: 2px solid #ddd;
+                background-color: white;
+                display: block;
+                clear: both;
+            }
+
+            /* Response dropdowns - use desktop styling for mobile too */
+            .blank-dropdown {
+                padding: 2px 6px;
+                border: 1px solid #007bff;
+                border-radius: 3px;
+                background-color: white;
+                margin: 0 2px;
+                min-width: 120px;
+                max-width: 200px;
+                font-size: 14px;
+                appearance: none;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='7,10 12,15 17,10'%3e%3c/polyline%3e%3c/svg%3e");
+                background-repeat: no-repeat;
+                background-position: right 4px center;
+                background-size: 10px;
+                padding-right: 20px;
+            }
+
+            .dropdown:focus {
+                border-color: #007bff;
+                outline: none;
+                box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+            }
+
+            .blank-dropdown:focus {
+                border-color: #007bff;
+                outline: none;
+                box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+            }
+
+            .dropdown option {
+                padding: 8px;
+                font-size: 16px;
+            }
+
+
+
+            .dropdown-group {
+                display: inline-block;
+                margin: 0 2px;
+                vertical-align: baseline;
+            }
+
+            .blank-input {
+                width: 100%;
+                padding: 12px 15px;
+                font-size: 16px;
+                border-radius: 6px;
+                min-height: 44px;
+                border: 2px solid #ddd;
+                margin-top: 8px;
+            }
+
+            .blank-input:focus {
+                border-color: #007bff;
+                outline: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-wrapper {
+                padding: 10px 5px;
+            }
+
+            .test-container {
+                border-radius: 6px;
+            }
+
+            .content {
+                padding: 12px;
+            }
+
+            .content h2 {
+                font-size: 18px;
+            }
+
+            .email-container {
+                padding: 12px;
+            }
+
+            .email-body {
+                font-size: 14px;
+            }
+
+            .questions-section h3 {
+                font-size: 16px;
+            }
+
+            .question {
+                padding: 12px;
+                margin-bottom: 15px;
+            }
+
+            .question-text {
+                font-size: 14px;
+            }
+
+            .dropdown, .blank-dropdown, .blank-input {
+                padding: 10px 12px;
+                font-size: 16px;
+                min-height: 42px;
+            }
+
+            .next-button {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+
+            .logo-container {
+                padding: 12px;
+            }
+
+            .logo-container img {
+                max-width: 100px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- LOGO -->
+    <div class="logo-container">
+        <img src="Images/True North English Logo 2.0 (400 x 100 px).png" alt="True North English" style="max-width: 200px; height: auto;">
+    </div>
+
+    <!-- MAIN CONTENT WRAPPER -->
+    <div class="main-wrapper">
+        <!-- TEST CONTAINER -->
+        <div class="test-container">
+            <!-- HEADER SECTION -->
+            <div class="header">
+                <div class="header-title">Practice Test I - Reading Part 4: Reading for Viewpoints</div>
+                <div class="timer-next">
+                    <div class="timer" id="timer">Time remaining: 13:00</div>
+                    <button class="next-button" onclick="window.location.href='04_Answer_Key.html'">NEXT</button>
+                </div>
+            </div>
+
+                        <!-- MAIN CONTENT -->
+            <div class="main-container">
+                <!-- SCROLL MESSAGE OVERLAY -->
+                <div class="scroll-message" id="scrollMessage">Scroll up and down to see everything.</div>
+                
+                <!-- LEFT PANEL - READING MESSAGE -->
+                <div class="left-panel">
+                <div class="section-header">
+                    <div class="info-icon">i</div>
+                    Read the following article from a website.
+                </div>
+                <div class="reading-content" id="readingContent">
+                    <!-- =========================================== -->
+                    <!-- EDITABLE SECTION: READING MESSAGE/ARTICLE -->
+                    <!-- =========================================== -->
+                    <!-- Replace the text below with your new message/article -->
+                    A recent surge of high-profile data breaches has prompted renewed interest in cybersecurity. At issue is the security and confidentiality of thousands of terabytes of business and government data. Some experts are now warning that, unless drastic steps are taken to strengthen cybersecurity, the entire process of digitalization could be threatened.<br><br>
+
+                    "The past few months have been really unnerving for a lot of decision-makers. People read the news and they realize that breaches could happen to their company, often jeopardizing years of work, if not their organization's very survival," said Mona Jackman, a federal government policy analyst. "It's gotten to the point where people are questioning the whole digital revolution. I can't really say I blame them. When you look at the scale of the leaks and the strength of the organizations that were hacked, you have to feel vulnerable. If you are a small business owner who depends on proprietary information, isn't it better to leave everything offline and stick with pen and paper methods?"<br><br>
+
+                    "Those who say that hacking could somehow harm the IT industry don't understand the long-term technological forces that are at work. Solutions are being found as more cash is infused into the system," opined Cassandra Black, an IT industry analyst. "Security consultants make thousands of dollars installing firewalls, authentication software, and cyberactivity monitoring systems. Cybersecurity companies have been flourishing; these high-profile hacking cases are like free publicity for them."<br><br>
+
+                    However, not everyone believes that more costly, sophisticated systems are the answer to modern cybersecurity threats. "When dealing with hackers, the best tool we have in our arsenal is education," weighs in Mark Levinstein, Chief Information Officer at a large Canadian engineering consulting firm. "Most of these large leaks were the results of very simple phishing scams, whereby hackers were unwittingly given network access by employees. I don't worry for the IT industry, because these are basic issues that can be resolved at a low cost, but we need proper training and coordination across the sector."
+                    <!-- =========================================== -->
+                    <!-- END OF EDITABLE SECTION -->
+                    <!-- =========================================== -->
+                </div>
+            </div>
+
+            <!-- RIGHT PANEL - QUESTIONS -->
+            <div class="right-panel">
+                <!-- SECTION 1: DROPDOWN SELECTION QUESTIONS -->
+                <div class="question-section">
+                    <div class="section-header">
+                        <div class="info-icon">i</div>
+                        Using the drop-down menu, choose the best option according to the information given on the website.
+                    </div>
+                    
+                    <!-- =========================================== -->
+                    <!-- EDITABLE SECTION: DROPDOWN SELECTION QUESTIONS -->
+                    <!-- =========================================== -->
+                    <!-- Replace the questions and answers below with your new ones -->
+                    <div class="question">
+                        <span class="question-number">1.</span>
+                        <span class="question-text">Cybersecurity companies have likely</span>
+                    </div>
+                    <div class="question">
+                        <select class="dropdown" id="q1">
+                            <option value="">&nbsp;</option>
+                            <option value="lost many skilled employees.">lost many skilled employees.</option>
+                            <option value="experienced increased hiring.">experienced increased hiring.</option>
+                            <option value="been suffering financially.">been suffering financially.</option>
+                            <option value="been behind the data breaches.">been behind the data breaches.</option>
+                        </select>
+                    </div>
+
+                    <div class="question">
+                        <span class="question-number">2.</span>
+                        <span class="question-text">Jackman would agree that</span>
+                    </div>
+                    <div class="question">
+                        <select class="dropdown" id="q2">
+                            <option value="">&nbsp;</option>
+                            <option value="news stories have exaggerated the threat of data breaches.">news stories have exaggerated the threat of data breaches.</option>
+                            <option value="smaller businesses are less vulnerable to being hacked.">smaller businesses are less vulnerable to being hacked.</option>
+                            <option value="the federal government has a duty to shut down hackers.">the federal government has a duty to shut down hackers.</option>
+                            <option value="the internet is a risky location to store sensitive data.">the internet is a risky location to store sensitive data.</option>
+                        </select>
+                    </div>
+
+                    <div class="question">
+                        <span class="question-number">3.</span>
+                        <span class="question-text">One issue mentioned regarding data breaches is that</span>
+                    </div>
+                    <div class="question">
+                        <select class="dropdown" id="q3">
+                            <option value="">&nbsp;</option>
+                            <option value="they're frequently exaggerated in the news.">they're frequently exaggerated in the news.</option>
+                            <option value="cybersecurity companies cannot keep pace.">cybersecurity companies cannot keep pace.</option>
+                            <option value="small businesses are the primary targets.">small businesses are the primary targets.</option>
+                            <option value="they're often inadvertently caused by staff.">they're often inadvertently caused by staff.</option>
+                        </select>
+                    </div>
+
+                    <div class="question">
+                        <span class="question-number">4.</span>
+                        <span class="question-text">Cassandra Black believes that cybersecurity concerns</span>
+                    </div>
+                    <div class="question">
+                        <select class="dropdown" id="q4">
+                            <option value="">&nbsp;</option>
+                            <option value="harm the IT industry in the long run.">harm the IT industry in the long run.</option>
+                            <option value="require little financing to address.">require little financing to address.</option>
+                            <option value="benefit cybersecurity companies.">benefit cybersecurity companies.</option>
+                            <option value="have been insufficiently publicized.">have been insufficiently publicized.</option>
+                        </select>
+                    </div>
+
+                    <div class="question">
+                        <span class="question-number">5.</span>
+                        <span class="question-text">According to the article, recent cybersecurity breaches have</span>
+                    </div>
+                    <div class="question">
+                        <select class="dropdown" id="q5">
+                            <option value="">&nbsp;</option>
+                            <option value="caused skepticism about computing.">caused skepticism about computing.</option>
+                            <option value="revived use of paper documentation.">revived use of paper documentation.</option>
+                            <option value="become easier to fix systematically.">become easier to fix systematically.</option>
+                            <option value="caused the IT industry to hit a wall.">caused the IT industry to hit a wall.</option>
+                        </select>
+                    </div>
+                    <!-- =========================================== -->
+                    <!-- END OF EDITABLE SECTION -->
+                    <!-- =========================================== -->
+                </div>
+
+                <!-- SECTION 2: FILL-IN-THE-BLANKS WITH DROPDOWN OPTIONS -->
+                <div class="question-section">
+                    <div class="section-header">
+                        <div class="info-icon">i</div>
+                        The following is a comment by a visitor to the website page. Complete the comment by choosing the best option to fill in each blank.
+                    </div>
+                    
+                    <div class="response-text">
+                        <!-- =========================================== -->
+                        <!-- EDITABLE SECTION: FILL-IN-THE-BLANKS RESPONSE -->
+                        <!-- =========================================== -->
+                        <!-- Replace the response text and dropdown options below with your new ones -->
+                        I've been working as an IT consultant for over a decade, helping companies transition towards online activities. I would tend to agree with Ms. Black when she says that there are <span class="dropdown-group">6. 
+                        <select class="blank-dropdown" id="q6">
+                            <option value="">&nbsp;</option>
+                            <option value="network protection experts">network protection experts</option>
+                            <option value="various government analysts">various government analysts</option>
+                            <option value="reformed computer hackers">reformed computer hackers</option>
+                            <option value="famous publicity consultants">famous publicity consultants</option>
+                        </select></span> ensuring the continuation of the digitalization process.<br><br>
+                        <span class="dropdown-group">7. 
+                        <select class="blank-dropdown" id="q7">
+                            <option value="">&nbsp;</option>
+                            <option value="It is therefore a good thing that">It is therefore a good thing that</option>
+                            <option value="She's hit the mark in saying that">She's hit the mark in saying that</option>
+                            <option value="So it's no small wonder that">So it's no small wonder that</option>
+                            <option value="This continues even while">This continues even while</option>
+                        </select></span> big data, machine learning, and cloud computing are becoming huge business advantages, and companies that fail to adapt will be unable to compete.<br><br>
+                        Of course, this means that <span class="dropdown-group">8. 
+                        <select class="blank-dropdown" id="q8">
+                            <option value="">&nbsp;</option>
+                            <option value="employee training courseware">employee training courseware</option>
+                            <option value="safeguarding digital information">safeguarding digital information</option>
+                            <option value="publicizing information breaches">publicizing information breaches</option>
+                            <option value="internet technology coordination">internet technology coordination</option>
+                        </select></span> is becoming very profitable.<br><br>
+                        <span class="dropdown-group">9. 
+                        <select class="blank-dropdown" id="q9">
+                            <option value="">&nbsp;</option>
+                            <option value="Contrary to">Contrary to</option>
+                            <option value="Based on research by">Based on research by</option>
+                            <option value="To paraphrase">To paraphrase</option>
+                            <option value="As eluded to by">As eluded to by</option>
+                        </select></span> Mr. Levinstein, I believe that there is a technological arms race happening between cybersecurity experts and hackers.<br><br>
+                        <span class="dropdown-group">10. 
+                        <select class="blank-dropdown" id="q10">
+                            <option value="">&nbsp;</option>
+                            <option value="Training courses">Training courses</option>
+                            <option value="Software programs">Software programs</option>
+                            <option value="Network restrictions">Network restrictions</option>
+                            <option value="Sophisticated tools">Sophisticated tools</option>
+                        </select></span> are not enough to ensure security. Systems have to be built before employees can learn how to use them properly.
+                        <!-- =========================================== -->
+                        <!-- END OF EDITABLE SECTION -->
+                        <!-- =========================================== -->
+                    </div>
+                </div>
+
+                <!-- RESULTS SECTION -->
+                <div class="results" id="results">
+                    <h3>Selected Answers:</h3>
+                    <div id="answerResults"></div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <script>
+        // ===========================================
+        // EDITABLE SECTION: TIMER SETTINGS
+        // ===========================================
+        // Change the time limit here (in minutes)
+        let timeLimit = 13;
+        // ===========================================
+        // END OF EDITABLE SECTION
+        // ===========================================
+
+        let timeRemaining = timeLimit * 60; // Convert to seconds
+        const timerElement = document.getElementById('timer');
+
+        // Timer function
+        function updateTimer() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            timerElement.textContent = `Time remaining: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (timeRemaining > 0) {
+                timeRemaining--;
+                setTimeout(updateTimer, 1000);
+            } else {
+                timerElement.textContent = "Time's up!";
+            }
+        }
+
+        // Start timer when page loads
+        updateTimer();
+
+        // Load saved answers from localStorage when page loads (disabled for fresh start)
+        function loadSavedAnswers() {
+            // Disabled to ensure fresh start for each test attempt
+            // Previous answers are cleared when starting from the start page
+            console.log('Fresh test - no previous answers loaded');
+        }
+
+        // Load saved answers when page loads and record test start time
+        document.addEventListener('DOMContentLoaded', function() {
+            // Record test start time
+            if (!localStorage.getItem('testStartTime')) {
+                localStorage.setItem('testStartTime', new Date().toISOString());
+            }
+            loadSavedAnswers();
+            
+            // Show scroll message for 2.34 seconds then fade out (30% longer than original 1.8)
+            const scrollMessage = document.getElementById('scrollMessage');
+            if (scrollMessage) {
+                // Show the message
+                setTimeout(() => {
+                    scrollMessage.classList.add('show');
+                }, 500); // Start showing after 0.5 seconds
+                
+                // Hide the message after 2.34 seconds (increased from 1.8)
+                setTimeout(() => {
+                    scrollMessage.classList.remove('show');
+                }, 2840); // Hide after 2.84 seconds total (0.5 + 2.34)
+            }
+            
+            // Handle NEXT button click to navigate to Answer Key
+            const nextButton = document.querySelector('.next-button');
+            if (nextButton) {
+                nextButton.addEventListener('click', function() {
+                    console.log('NEXT button clicked - navigating to Answer Key');
+                    window.location.href = '04_Answer_Key.html';
+                });
+            } else {
+                console.error('NEXT button not found');
+            }
+        });
+
+        // Function to show results
+        function showResults() {
+            const results = document.getElementById('results');
+            const answerResults = document.getElementById('answerResults');
+            
+            let resultsHTML = '';
+            
+            // Get all dropdown answers
+            for (let i = 1; i <= 10; i++) {
+                const dropdown = document.getElementById(`q${i}`);
+                const selectedValue = dropdown.value;
+                resultsHTML += `<p><strong>Question ${i}:</strong> ${selectedValue || 'Not answered'}</p>`;
+            }
+            
+            answerResults.innerHTML = resultsHTML;
+            results.classList.add('show');
+            
+            // Log to console for easy viewing
+            console.log('=== SELECTED ANSWERS ===');
+            for (let i = 1; i <= 10; i++) {
+                const dropdown = document.getElementById(`q${i}`);
+                console.log(`Question ${i}: ${dropdown.value || 'Not answered'}`);
+            }
+            console.log('=======================');
+        }
+
+        // Add event listeners for dropdown changes (optional - for real-time tracking)
+        document.querySelectorAll('.dropdown, .blank-dropdown').forEach(dropdown => {
+            dropdown.addEventListener('change', function() {
+                console.log(`${this.id}: ${this.value}`);
+                
+                // Save answer to localStorage with correct format for answer key
+                localStorage.setItem(`${this.id}-p4`, this.value);
+                
+                // Style the dropdown when an option is selected (for both types)
+                if (this.value !== '') {
+                    this.style.color = '#2d5a2d';
+                    this.style.fontWeight = 'normal';
+                    this.style.backgroundColor = 'white';
+                    this.style.boxShadow = 'none';
+                } else {
+                    this.style.color = '#333';
+                    this.style.fontWeight = 'normal';
+                    this.style.backgroundColor = 'white';
+                    this.style.boxShadow = 'none';
+                }
+            });
+        });
+
+
+
+        // Product dropdown functionality removed - not applicable to this page
+
+    </script>
+</body>
+</html> 
