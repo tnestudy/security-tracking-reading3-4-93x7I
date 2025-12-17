@@ -1258,11 +1258,11 @@
                     const correctAnswers = {
                         'q1-p4': 'experienced increased hiring.',
                         'q2-p4': 'the internet is a risky location to store sensitive data.',
-                        'q3-p4': 'they're often inadvertently caused by staff.',
+                        'q3-p4': "they're often inadvertently caused by staff.",
                         'q4-p4': 'benefit cybersecurity companies.',
                         'q5-p4': 'caused skepticism about computing.',
                         'q6-p4': 'network protection experts',
-                        'q7-p4': 'So it's no small wonder that',
+                        'q7-p4': "So it's no small wonder that",
                         'q8-p4': 'safeguarding digital information',
                         'q9-p4': 'Contrary to',
                         'q10-p4': 'Training courses'
@@ -1315,122 +1315,152 @@
 
         // Function to load user answers from localStorage
         function loadUserAnswers() {
-            console.log('Loading user answers...');
+            console.log('=== Loading user answers ===');
             
             // Load answers from Reading Part 3 (9 questions)
             for (let i = 1; i <= 9; i++) {
-                const userAnswer = localStorage.getItem(`q${i}`);
+                const storageKey = `q${i}`;
+                const userAnswer = localStorage.getItem(storageKey);
                 const userAnswerElement = document.getElementById(`user-q${i}`);
                 
-                console.log(`Checking q${i}:`, userAnswer, userAnswerElement);
+                console.log(`Part 3 Q${i} - Storage key: "${storageKey}", Value:`, userAnswer, `(type: ${typeof userAnswer})`, `Element found:`, !!userAnswerElement);
                 
-                if (userAnswerElement) {
-                    // Get correct answer from the correct answer element
-                    const questionDetail = userAnswerElement.closest('.question-detail');
-                    const correctAnswerElement = questionDetail.querySelector('.correct-answer');
-                    if (!correctAnswerElement) {
-                        console.error(`Correct answer element not found for q${i}`);
-                        continue;
-                    }
-                    const correctAnswer = correctAnswerElement.textContent.replace('✓', '').trim();
+                if (!userAnswerElement) {
+                    console.error(`User answer element not found for q${i}`);
+                    continue;
+                }
+                
+                // Get correct answer from the correct answer element
+                const questionDetail = userAnswerElement.closest('.question-detail');
+                if (!questionDetail) {
+                    console.error(`Question detail not found for q${i}`);
+                    continue;
+                }
+                
+                const correctAnswerElement = questionDetail.querySelector('.correct-answer');
+                if (!correctAnswerElement) {
+                    console.error(`Correct answer element not found for q${i}`);
+                    continue;
+                }
+                
+                const correctAnswer = correctAnswerElement.textContent.replace('✓', '').trim();
+                console.log(`Part 3 Q${i} - Correct answer from DOM: "${correctAnswer}"`);
+                
+                // Check if user answer exists and is not empty
+                if (userAnswer !== null && userAnswer !== undefined && userAnswer.trim() !== '') {
+                    const userAnswerTrimmed = userAnswer.trim();
+                    const isCorrect = userAnswerTrimmed === correctAnswer;
+                    console.log(`Part 3 Q${i} - User: "${userAnswerTrimmed}", Correct: "${correctAnswer}", Match: ${isCorrect}`);
                     
-                    if (userAnswer && userAnswer.trim() !== '') {
-                        const userAnswerTrimmed = userAnswer.trim();
-                        const isCorrect = userAnswerTrimmed === correctAnswer;
-                        console.log(`q${i} - User: "${userAnswerTrimmed}", Correct: "${correctAnswer}", Match: ${isCorrect}`);
-                        
-                        // Add visual indicator to user answer
-                        if (isCorrect) {
-                            userAnswerElement.style.backgroundColor = '#d4edda';
-                            userAnswerElement.style.color = '#155724';
-                            userAnswerElement.style.borderColor = '#c3e6cb';
-                            userAnswerElement.innerHTML = '<span style="color: #28a745; font-weight: bold; margin-right: 8px;">✓</span>' + userAnswerTrimmed;
-                        } else {
-                            userAnswerElement.style.backgroundColor = '#f8d7da';
-                            userAnswerElement.style.color = '#721c24';
-                            userAnswerElement.style.borderColor = '#f5c6cb';
-                            userAnswerElement.innerHTML = '<span style="color: #dc3545; font-weight: bold; margin-right: 8px;">✗</span>' + userAnswerTrimmed;
-                        }
+                    // Display the user's answer
+                    userAnswerElement.textContent = userAnswerTrimmed;
+                    
+                    // Add visual indicator to user answer
+                    if (isCorrect) {
+                        userAnswerElement.style.backgroundColor = '#d4edda';
+                        userAnswerElement.style.color = '#155724';
+                        userAnswerElement.style.borderColor = '#c3e6cb';
+                        userAnswerElement.innerHTML = '<span style="color: #28a745; font-weight: bold; margin-right: 8px;">✓</span>' + userAnswerTrimmed;
                     } else {
-                        // Handle unanswered questions - show as incorrect
                         userAnswerElement.style.backgroundColor = '#f8d7da';
                         userAnswerElement.style.color = '#721c24';
                         userAnswerElement.style.borderColor = '#f5c6cb';
-                        userAnswerElement.style.fontStyle = 'italic';
-                        userAnswerElement.innerHTML = '<span style="color: #dc3545; font-weight: bold; margin-right: 8px;">✗</span>Not answered';
-                        console.log(`q${i} - Not answered, marked as incorrect`);
+                        userAnswerElement.innerHTML = '<span style="color: #dc3545; font-weight: bold; margin-right: 8px;">✗</span>' + userAnswerTrimmed;
                     }
                 } else {
-                    console.error(`User answer element not found for q${i}`);
+                    // Handle unanswered questions - show as incorrect
+                    console.log(`Part 3 Q${i} - No answer found (value: ${userAnswer})`);
+                    userAnswerElement.style.backgroundColor = '#f8d7da';
+                    userAnswerElement.style.color = '#721c24';
+                    userAnswerElement.style.borderColor = '#f5c6cb';
+                    userAnswerElement.style.fontStyle = 'italic';
+                    userAnswerElement.innerHTML = '<span style="color: #dc3545; font-weight: bold; margin-right: 8px;">✗</span>Not answered';
                 }
             }
             
             // Load answers from Reading Part 4 (10 questions)
             for (let i = 1; i <= 10; i++) {
-                const userAnswer = localStorage.getItem(`q${i}-p4`);
+                const storageKey = `q${i}-p4`;
+                const userAnswer = localStorage.getItem(storageKey);
                 const userAnswerElement = document.getElementById(`user-q${i}-p4`);
                 
-                console.log(`Checking q${i}-p4:`, userAnswer, userAnswerElement);
+                console.log(`Part 4 Q${i} - Storage key: "${storageKey}", Value:`, userAnswer, `(type: ${typeof userAnswer})`, `Element found:`, !!userAnswerElement);
                 
-                if (userAnswerElement) {
-                    // Get correct answer from the correct answer element
-                    const questionDetail = userAnswerElement.closest('.question-detail');
-                    const correctAnswerElement = questionDetail.querySelector('.correct-answer');
-                    if (!correctAnswerElement) {
-                        console.error(`Correct answer element not found for q${i}-p4`);
-                        continue;
-                    }
-                    const correctAnswer = correctAnswerElement.textContent.replace('✓', '').trim();
+                if (!userAnswerElement) {
+                    console.error(`User answer element not found for q${i}-p4`);
+                    continue;
+                }
+                
+                // Get correct answer from the correct answer element
+                const questionDetail = userAnswerElement.closest('.question-detail');
+                if (!questionDetail) {
+                    console.error(`Question detail not found for q${i}-p4`);
+                    continue;
+                }
+                
+                const correctAnswerElement = questionDetail.querySelector('.correct-answer');
+                if (!correctAnswerElement) {
+                    console.error(`Correct answer element not found for q${i}-p4`);
+                    continue;
+                }
+                
+                const correctAnswer = correctAnswerElement.textContent.replace('✓', '').trim();
+                console.log(`Part 4 Q${i} - Correct answer from DOM: "${correctAnswer}"`);
+                
+                // Check if user answer exists and is not empty
+                if (userAnswer !== null && userAnswer !== undefined && userAnswer.trim() !== '') {
+                    const userAnswerTrimmed = userAnswer.trim();
+                    const isCorrect = userAnswerTrimmed === correctAnswer;
+                    console.log(`Part 4 Q${i} - User: "${userAnswerTrimmed}", Correct: "${correctAnswer}", Match: ${isCorrect}`);
                     
-                    if (userAnswer && userAnswer.trim() !== '') {
-                        const userAnswerTrimmed = userAnswer.trim();
-                        const isCorrect = userAnswerTrimmed === correctAnswer;
-                        console.log(`q${i}-p4 - User: "${userAnswerTrimmed}", Correct: "${correctAnswer}", Match: ${isCorrect}`);
-                        
-                        // Add visual indicator to user answer
-                        if (isCorrect) {
-                            userAnswerElement.style.backgroundColor = '#d4edda';
-                            userAnswerElement.style.color = '#155724';
-                            userAnswerElement.style.borderColor = '#c3e6cb';
-                            userAnswerElement.innerHTML = '<span style="color: #28a745; font-weight: bold; margin-right: 8px;">✓</span>' + userAnswerTrimmed;
-                        } else {
-                            userAnswerElement.style.backgroundColor = '#f8d7da';
-                            userAnswerElement.style.color = '#721c24';
-                            userAnswerElement.style.borderColor = '#f5c6cb';
-                            userAnswerElement.innerHTML = '<span style="color: #dc3545; font-weight: bold; margin-right: 8px;">✗</span>' + userAnswerTrimmed;
-                        }
+                    // Display the user's answer
+                    userAnswerElement.textContent = userAnswerTrimmed;
+                    
+                    // Add visual indicator to user answer
+                    if (isCorrect) {
+                        userAnswerElement.style.backgroundColor = '#d4edda';
+                        userAnswerElement.style.color = '#155724';
+                        userAnswerElement.style.borderColor = '#c3e6cb';
+                        userAnswerElement.innerHTML = '<span style="color: #28a745; font-weight: bold; margin-right: 8px;">✓</span>' + userAnswerTrimmed;
                     } else {
-                        // Handle unanswered questions - show as incorrect
                         userAnswerElement.style.backgroundColor = '#f8d7da';
                         userAnswerElement.style.color = '#721c24';
                         userAnswerElement.style.borderColor = '#f5c6cb';
-                        userAnswerElement.style.fontStyle = 'italic';
-                        userAnswerElement.innerHTML = '<span style="color: #dc3545; font-weight: bold; margin-right: 8px;">✗</span>Not answered';
-                        console.log(`q${i}-p4 - Not answered, marked as incorrect`);
+                        userAnswerElement.innerHTML = '<span style="color: #dc3545; font-weight: bold; margin-right: 8px;">✗</span>' + userAnswerTrimmed;
                     }
                 } else {
-                    console.error(`User answer element not found for q${i}-p4`);
+                    // Handle unanswered questions - show as incorrect
+                    console.log(`Part 4 Q${i} - No answer found (value: ${userAnswer})`);
+                    userAnswerElement.style.backgroundColor = '#f8d7da';
+                    userAnswerElement.style.color = '#721c24';
+                    userAnswerElement.style.borderColor = '#f5c6cb';
+                    userAnswerElement.style.fontStyle = 'italic';
+                    userAnswerElement.innerHTML = '<span style="color: #dc3545; font-weight: bold; margin-right: 8px;">✗</span>Not answered';
                 }
             }
+            
+            console.log('=== Finished loading user answers ===');
         }
 
         // Load user answers when page loads
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Answer Key page loaded');
+            
+            // Debug: Check what's in localStorage BEFORE loading
+            console.log('=== localStorage contents BEFORE loading ===');
+            for (let i = 1; i <= 9; i++) {
+                const answer = localStorage.getItem(`q${i}`);
+                console.log(`q${i}:`, answer || '(not found)');
+            }
+            for (let i = 1; i <= 10; i++) {
+                const answer = localStorage.getItem(`q${i}-p4`);
+                console.log(`q${i}-p4:`, answer || '(not found)');
+            }
+            console.log('=== End localStorage check ===');
+            
             loadParticipantInfo();
             loadUserAnswers();
             calculateScore();
-            
-            // Debug: Check what's in localStorage
-            console.log('localStorage contents:');
-            for (let i = 1; i <= 11; i++) {
-                const answer = localStorage.getItem(`q${i}`);
-                console.log(`q${i}:`, answer);
-            }
-            for (let i = 1; i <= 8; i++) {
-                const answer = localStorage.getItem(`q${i}-p2`);
-                console.log(`q${i}-p2:`, answer);
-            }
         });
 
 
