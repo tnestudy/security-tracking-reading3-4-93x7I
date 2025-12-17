@@ -780,7 +780,7 @@
                 </div>
                 
                 <div class="explanation-button-container">
-                    <a href="https://www.skool.com/celpipexperts/classroom/8e176082?md=6dfd6c4208da4e17b0a9483947fcab0c" target="_blank" class="explanation-button">Watch Test Explanation</a>
+                    <a href="https://www.skool.com/celpipexperts/classroom/8e176082?md=9bff6a535b4a4bf0bf0ee92ff1faedaa" target="_blank" class="explanation-button">Watch Test Explanation</a>
                 </div>
             </div>
 
@@ -1193,35 +1193,38 @@
             console.log('=== PART 3 ANSWER CHECKING ===');
             for (let i = 1; i <= 9; i++) {
                 const userAnswer = localStorage.getItem(`q${i}`);
-                if (userAnswer) {
-                    // Get correct answer from the HTML display
-                    const userAnswerElement = document.getElementById(`user-q${i}`);
-                    let correctAnswer = '';
-                    if (userAnswerElement) {
-                        const questionDetail = userAnswerElement.closest('.question-detail');
-                        const correctAnswerElement = questionDetail.querySelector('.correct-answer');
+                let correctAnswer = '';
+                
+                // Get correct answer from the HTML display
+                const userAnswerElement = document.getElementById(`user-q${i}`);
+                if (userAnswerElement) {
+                    const questionDetail = userAnswerElement.closest('.question-detail');
+                    const correctAnswerElement = questionDetail.querySelector('.correct-answer');
+                    if (correctAnswerElement) {
                         correctAnswer = correctAnswerElement.textContent.replace('✓', '').trim();
-                    } else {
-                        // Fallback to hardcoded answers if HTML not found
-                        const correctAnswers = {
-                            'q1': 'C',
-                            'q2': 'D',
-                            'q3': 'B',
-                            'q4': 'E',
-                            'q5': 'A',
-                            'q6': 'C',
-                            'q7': 'E',
-                            'q8': 'A',
-                            'q9': 'D'
-                        };
-                        correctAnswer = correctAnswers[`q${i}`];
                     }
-                    
-                    const isCorrect = userAnswer.trim() === correctAnswer;
-                    console.log(`Q${i}: User="${userAnswer}" | Correct="${correctAnswer}" | Match=${isCorrect}`);
-                    console.log(`Q${i}: User length=${userAnswer.trim().length}, Correct length=${correctAnswer.length}`);
-                    console.log(`Q${i}: User char codes:`, Array.from(userAnswer.trim()).map(c => c.charCodeAt(0)));
-                    console.log(`Q${i}: Correct char codes:`, Array.from(correctAnswer).map(c => c.charCodeAt(0)));
+                }
+                
+                // Fallback to hardcoded answers if HTML not found
+                if (!correctAnswer) {
+                    const correctAnswers = {
+                        'q1': 'C',
+                        'q2': 'D',
+                        'q3': 'B',
+                        'q4': 'E',
+                        'q5': 'A',
+                        'q6': 'C',
+                        'q7': 'E',
+                        'q8': 'A',
+                        'q9': 'D'
+                    };
+                    correctAnswer = correctAnswers[`q${i}`] || '';
+                }
+                
+                if (userAnswer && userAnswer.trim() !== '') {
+                    const userAnswerTrimmed = userAnswer.trim();
+                    const isCorrect = userAnswerTrimmed === correctAnswer;
+                    console.log(`Q${i}: User="${userAnswerTrimmed}" | Correct="${correctAnswer}" | Match=${isCorrect}`);
                     
                     if (isCorrect) {
                         correctCount++;
@@ -1238,36 +1241,39 @@
             console.log('=== PART 4 ANSWER CHECKING ===');
             for (let i = 1; i <= 10; i++) {
                 const userAnswer = localStorage.getItem(`q${i}-p4`);
-                if (userAnswer) {
-                    // Get correct answer from the HTML display
-                    const userAnswerElement = document.getElementById(`user-q${i}-p4`);
-                    let correctAnswer = '';
-                    if (userAnswerElement) {
-                        const questionDetail = userAnswerElement.closest('.question-detail');
-                        const correctAnswerElement = questionDetail.querySelector('.correct-answer');
+                let correctAnswer = '';
+                
+                // Get correct answer from the HTML display
+                const userAnswerElement = document.getElementById(`user-q${i}-p4`);
+                if (userAnswerElement) {
+                    const questionDetail = userAnswerElement.closest('.question-detail');
+                    const correctAnswerElement = questionDetail.querySelector('.correct-answer');
+                    if (correctAnswerElement) {
                         correctAnswer = correctAnswerElement.textContent.replace('✓', '').trim();
-                    } else {
-                        // Fallback to hardcoded answers if HTML not found
-                        const correctAnswers = {
-                            'q1-p4': 'experienced increased hiring.',
-                            'q2-p4': 'the internet is a risky location to store sensitive data.',
-                            'q3-p4': 'they\'re often inadvertently caused by staff.',
-                            'q4-p4': 'benefit cybersecurity companies.',
-                            'q5-p4': 'caused skepticism about computing.',
-                            'q6-p4': 'network protection experts',
-                            'q7-p4': 'So it's no small wonder that',
-                            'q8-p4': 'safeguarding digital information',
-                            'q9-p4': 'Contrary to',
-                            'q10-p4': 'Training courses'
-                        };
-                        correctAnswer = correctAnswers[`q${i}-p4`];
                     }
-                    
-                    const isCorrect = userAnswer.trim() === correctAnswer;
-                    console.log(`Q${i+9}: User="${userAnswer}" | Correct="${correctAnswer}" | Match=${isCorrect}`);
-                    console.log(`Q${i+9}: User length=${userAnswer.trim().length}, Correct length=${correctAnswer.length}`);
-                    console.log(`Q${i+9}: User char codes:`, Array.from(userAnswer.trim()).map(c => c.charCodeAt(0)));
-                    console.log(`Q${i+9}: Correct char codes:`, Array.from(correctAnswer).map(c => c.charCodeAt(0)));
+                }
+                
+                // Fallback to hardcoded answers if HTML not found
+                if (!correctAnswer) {
+                    const correctAnswers = {
+                        'q1-p4': 'experienced increased hiring.',
+                        'q2-p4': 'the internet is a risky location to store sensitive data.',
+                        'q3-p4': 'they're often inadvertently caused by staff.',
+                        'q4-p4': 'benefit cybersecurity companies.',
+                        'q5-p4': 'caused skepticism about computing.',
+                        'q6-p4': 'network protection experts',
+                        'q7-p4': 'So it's no small wonder that',
+                        'q8-p4': 'safeguarding digital information',
+                        'q9-p4': 'Contrary to',
+                        'q10-p4': 'Training courses'
+                    };
+                    correctAnswer = correctAnswers[`q${i}-p4`] || '';
+                }
+                
+                if (userAnswer && userAnswer.trim() !== '') {
+                    const userAnswerTrimmed = userAnswer.trim();
+                    const isCorrect = userAnswerTrimmed === correctAnswer;
+                    console.log(`Q${i+9}: User="${userAnswerTrimmed}" | Correct="${correctAnswer}" | Match=${isCorrect}`);
                     
                     if (isCorrect) {
                         correctCount++;
@@ -1322,27 +1328,31 @@
                     // Get correct answer from the correct answer element
                     const questionDetail = userAnswerElement.closest('.question-detail');
                     const correctAnswerElement = questionDetail.querySelector('.correct-answer');
+                    if (!correctAnswerElement) {
+                        console.error(`Correct answer element not found for q${i}`);
+                        continue;
+                    }
                     const correctAnswer = correctAnswerElement.textContent.replace('✓', '').trim();
                     
-                    if (userAnswer) {
-                        userAnswerElement.textContent = userAnswer;
-                        console.log(`q${i} - User: "${userAnswer}", Correct: "${correctAnswer}"`);
+                    if (userAnswer && userAnswer.trim() !== '') {
+                        const userAnswerTrimmed = userAnswer.trim();
+                        const isCorrect = userAnswerTrimmed === correctAnswer;
+                        console.log(`q${i} - User: "${userAnswerTrimmed}", Correct: "${correctAnswer}", Match: ${isCorrect}`);
                         
                         // Add visual indicator to user answer
-                        if (userAnswer.trim() === correctAnswer) {
+                        if (isCorrect) {
                             userAnswerElement.style.backgroundColor = '#d4edda';
                             userAnswerElement.style.color = '#155724';
                             userAnswerElement.style.borderColor = '#c3e6cb';
-                            userAnswerElement.innerHTML = '<span style="color: #28a745; font-weight: bold; margin-right: 8px;">✓</span>' + userAnswer;
+                            userAnswerElement.innerHTML = '<span style="color: #28a745; font-weight: bold; margin-right: 8px;">✓</span>' + userAnswerTrimmed;
                         } else {
                             userAnswerElement.style.backgroundColor = '#f8d7da';
                             userAnswerElement.style.color = '#721c24';
                             userAnswerElement.style.borderColor = '#f5c6cb';
-                            userAnswerElement.innerHTML = '<span style="color: #dc3545; font-weight: bold; margin-right: 8px;">✗</span>' + userAnswer;
+                            userAnswerElement.innerHTML = '<span style="color: #dc3545; font-weight: bold; margin-right: 8px;">✗</span>' + userAnswerTrimmed;
                         }
                     } else {
                         // Handle unanswered questions - show as incorrect
-                        userAnswerElement.textContent = "Not answered";
                         userAnswerElement.style.backgroundColor = '#f8d7da';
                         userAnswerElement.style.color = '#721c24';
                         userAnswerElement.style.borderColor = '#f5c6cb';
@@ -1350,6 +1360,8 @@
                         userAnswerElement.innerHTML = '<span style="color: #dc3545; font-weight: bold; margin-right: 8px;">✗</span>Not answered';
                         console.log(`q${i} - Not answered, marked as incorrect`);
                     }
+                } else {
+                    console.error(`User answer element not found for q${i}`);
                 }
             }
             
@@ -1364,27 +1376,31 @@
                     // Get correct answer from the correct answer element
                     const questionDetail = userAnswerElement.closest('.question-detail');
                     const correctAnswerElement = questionDetail.querySelector('.correct-answer');
+                    if (!correctAnswerElement) {
+                        console.error(`Correct answer element not found for q${i}-p4`);
+                        continue;
+                    }
                     const correctAnswer = correctAnswerElement.textContent.replace('✓', '').trim();
                     
-                    if (userAnswer) {
-                        userAnswerElement.textContent = userAnswer;
-                        console.log(`q${i}-p4 - User: "${userAnswer}", Correct: "${correctAnswer}"`);
+                    if (userAnswer && userAnswer.trim() !== '') {
+                        const userAnswerTrimmed = userAnswer.trim();
+                        const isCorrect = userAnswerTrimmed === correctAnswer;
+                        console.log(`q${i}-p4 - User: "${userAnswerTrimmed}", Correct: "${correctAnswer}", Match: ${isCorrect}`);
                         
                         // Add visual indicator to user answer
-                        if (userAnswer.trim() === correctAnswer) {
+                        if (isCorrect) {
                             userAnswerElement.style.backgroundColor = '#d4edda';
                             userAnswerElement.style.color = '#155724';
                             userAnswerElement.style.borderColor = '#c3e6cb';
-                            userAnswerElement.innerHTML = '<span style="color: #28a745; font-weight: bold; margin-right: 8px;">✓</span>' + userAnswer;
+                            userAnswerElement.innerHTML = '<span style="color: #28a745; font-weight: bold; margin-right: 8px;">✓</span>' + userAnswerTrimmed;
                         } else {
                             userAnswerElement.style.backgroundColor = '#f8d7da';
                             userAnswerElement.style.color = '#721c24';
                             userAnswerElement.style.borderColor = '#f5c6cb';
-                            userAnswerElement.innerHTML = '<span style="color: #dc3545; font-weight: bold; margin-right: 8px;">✗</span>' + userAnswer;
+                            userAnswerElement.innerHTML = '<span style="color: #dc3545; font-weight: bold; margin-right: 8px;">✗</span>' + userAnswerTrimmed;
                         }
                     } else {
                         // Handle unanswered questions - show as incorrect
-                        userAnswerElement.textContent = "Not answered";
                         userAnswerElement.style.backgroundColor = '#f8d7da';
                         userAnswerElement.style.color = '#721c24';
                         userAnswerElement.style.borderColor = '#f5c6cb';
@@ -1392,6 +1408,8 @@
                         userAnswerElement.innerHTML = '<span style="color: #dc3545; font-weight: bold; margin-right: 8px;">✗</span>Not answered';
                         console.log(`q${i}-p4 - Not answered, marked as incorrect`);
                     }
+                } else {
+                    console.error(`User answer element not found for q${i}-p4`);
                 }
             }
         }
